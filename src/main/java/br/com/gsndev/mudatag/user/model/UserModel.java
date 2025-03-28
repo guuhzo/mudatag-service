@@ -6,15 +6,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name = "users")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Entity
+@Table(name = "users")
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,4 +27,7 @@ public class UserModel {
     private List<GroupModel> ownedGroups;
 
     private boolean blocked;
+
+    @Column(name = "auth_id")
+    private String authId;
 }
