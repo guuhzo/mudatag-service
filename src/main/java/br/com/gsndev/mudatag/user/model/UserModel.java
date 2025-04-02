@@ -13,7 +13,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+        @Index(name = "idx_user_auth_id", columnList = "auth_id"),
+})
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,6 +30,6 @@ public class UserModel {
 
     private boolean blocked;
 
-    @Column(name = "auth_id")
+    @Column(name = "auth_id", unique = true)
     private String authId;
 }
