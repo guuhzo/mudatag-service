@@ -1,6 +1,6 @@
 package br.com.gsndev.mudatag.config;
 
-import br.com.gsndev.mudatag.filter.ValidateJwtUserAccessFilter;
+import br.com.gsndev.mudatag.core.filter.ValidateJwtUserAccessFilter;
 import br.com.gsndev.mudatag.user.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
