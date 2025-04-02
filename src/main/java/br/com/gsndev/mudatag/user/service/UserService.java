@@ -23,6 +23,9 @@ public class UserService {
         return user.map(this.userMapper::toDTO);
     }
 
-        return !(baseUserDTO == null || baseUserDTO.blocked());
+    public BaseUserDTO create(UserModel createData) {
+        UserModel userModel = this.userRepository.save(createData);
+
+        return this.userMapper.toDTO(userModel);
     }
 }
