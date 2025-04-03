@@ -74,7 +74,7 @@ public class GroupController {
 
         BaseGroupDTO group = this.groupService.save(baseGroupDTO);
 
-        return ResponseEntity.ok(group);
+        return ResponseEntity.status(201).body(group);
     }
 
     @PatchMapping("/{id}")
