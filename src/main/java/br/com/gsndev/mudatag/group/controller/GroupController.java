@@ -32,7 +32,7 @@ public class GroupController {
     @GetMapping("")
     public ResponseEntity<PaginationResponse<ShortGroupDTO>> findAllByUser(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size
+            @RequestParam(defaultValue = "10") int size
     ) {
         BaseUserDTO authUser = AuthUser.getAuthUser();
         Pageable pageable = PageRequest.of(page, size);
@@ -48,7 +48,7 @@ public class GroupController {
             UUID parsedId = UUID.fromString(id);
             BaseUserDTO authUser = AuthUser.getAuthUser();
 
-            BaseGroupDTO group = this.groupService
+             BaseGroupDTO group = this.groupService
                     .findById(authUser.getId(), parsedId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_MESSAGE));
 
@@ -61,17 +61,17 @@ public class GroupController {
     @PostMapping("")
     public ResponseEntity<BaseGroupDTO> create(@RequestBody WriteGroupDTO body) {
         BaseUserDTO authUser = AuthUser.getAuthUser();
-        BaseGroupDTO baseGroupDTO = new BaseGroupDTO();
+        BaseGroupDTO group = new BaseGroupDTO();
 
         List<BaseUserDTO> members = new ArrayList<>();
         members.add(authUser);
 
-        baseGroupDTO.setName(body.getName());
-        baseGroupDTO.setDescription(body.getDescription());
-        baseGroupDTO.setOwner(authUser);
-        baseGroupDTO.setMembers(members);
+        group.setName(body.getName());
+        group.setDescription(body.getDescription());
+        group.setOwner(authUser);
+        group.setMembers(members);
 
-        BaseGroupDTO group = this.groupService.save(baseGroupDTO);
+        group = this.groupService.save(group);
 
         return ResponseEntity.status(201).body(group);
     }
@@ -82,14 +82,11 @@ public class GroupController {
             UUID parsedId = UUID.fromString(id);
             BaseUserDTO authUser = AuthUser.getAuthUser();
 
-            BaseGroupDTO baseGroupDTO = this.groupService
+            BaseGroupDTO group = this.groupService
                     .findById(authUser.getId(), parsedId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_MESSAGE));
 
-            body.getName().ifPresent(baseGroupDTO::setName);
-            body.getDescription().ifPresent(baseGroupDTO::setDescription);
-
-            return ResponseEntity.ok(this.groupService.save(baseGroupDTO));
+            return ResponseEntity.ok(this.groupService.update(group, body));
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_MESSAGE);
         }

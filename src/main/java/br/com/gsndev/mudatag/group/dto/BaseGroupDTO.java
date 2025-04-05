@@ -17,4 +17,5 @@ public class BaseGroupDTO {
     private String description;
     private BaseUserDTO owner;
     private List<BaseUserDTO> members;
+    private Long membersCount;
 }
