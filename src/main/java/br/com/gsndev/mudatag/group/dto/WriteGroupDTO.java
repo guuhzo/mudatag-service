@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateGroupDTO {
+public class WriteGroupDTO {
     private String name;
     private String description;
 }

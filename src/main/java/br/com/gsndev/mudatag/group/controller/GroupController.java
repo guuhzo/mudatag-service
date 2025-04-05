@@ -2,9 +2,8 @@ package br.com.gsndev.mudatag.group.controller;
 
 import br.com.gsndev.mudatag.util.PaginationResponse;
 import br.com.gsndev.mudatag.group.dto.BaseGroupDTO;
-import br.com.gsndev.mudatag.group.dto.CreateGroupDTO;
+import br.com.gsndev.mudatag.group.dto.WriteGroupDTO;
 import br.com.gsndev.mudatag.group.dto.ShortGroupDTO;
-import br.com.gsndev.mudatag.group.dto.UpdateGroupDTO;
 import br.com.gsndev.mudatag.group.service.GroupService;
 import br.com.gsndev.mudatag.user.dto.BaseUserDTO;
 import br.com.gsndev.mudatag.util.AuthUser;
@@ -60,7 +59,7 @@ public class GroupController {
     }
 
     @PostMapping("")
-    public ResponseEntity<BaseGroupDTO> create(@RequestBody CreateGroupDTO body) {
+    public ResponseEntity<BaseGroupDTO> create(@RequestBody WriteGroupDTO body) {
         BaseUserDTO authUser = AuthUser.getAuthUser();
         BaseGroupDTO baseGroupDTO = new BaseGroupDTO();
 
@@ -78,7 +77,7 @@ public class GroupController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<BaseGroupDTO> update(@PathVariable("id") String id, @RequestBody UpdateGroupDTO body) {
+    public ResponseEntity<BaseGroupDTO> update(@PathVariable("id") String id, @RequestBody WriteGroupDTO body) {
         try {
             UUID parsedId = UUID.fromString(id);
             BaseUserDTO authUser = AuthUser.getAuthUser();
